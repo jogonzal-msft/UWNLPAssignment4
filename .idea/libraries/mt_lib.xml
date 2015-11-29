@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="mt-lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mt-lib.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/mt-lib.jar!/" />
+    </SOURCES>
+  </library>
+</component>
