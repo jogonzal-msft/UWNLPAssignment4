@@ -6,7 +6,10 @@ public class Main {
         System.out.println("Hello World!");
         MtDecoderTester.main(new String[]{
                 "-path" ,".\\bigdata",
-                "-decoderType", "MONO_GREEDY"
+                // "-decoderType", "MONO_GREEDY"
+                "-decoderType", "MONO_NOLM"
+                // "-decoderType", "MONO_LM"
+                // "-decoderType", "DIST_LM"
         });
     }
 }
