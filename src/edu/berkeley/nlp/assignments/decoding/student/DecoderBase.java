@@ -94,19 +94,10 @@ public class DecoderBase {
                     length++;
                     i++;
                 }
-                positionsAndLengths.add(new StartAndEnd(position, length));
+                positionsAndLengths.add(new StartAndEnd(position, position + length));
             }
         }
         return positionsAndLengths;
-    }
-
-    // Only used by Monotonic decoders
-    public static StartAndEnd GetInitialPositionOnlyAtBeginningFromAvailableSpots(TranslationState state) {
-        List<StartAndEnd> list = GetAvailablePositionsAndLengths(state);
-        if (list.size() != 1){
-            throw new StackOverflowError();
-        }
-        return list.get(0);
     }
 
     protected List<ScoredPhrasePairForSentence> DecodeFrenchSentence(List<String> frenchSentence, boolean monotonic) {
@@ -124,19 +115,27 @@ public class DecoderBase {
 
             for (TranslationState elementToProcess : elementsToProcess){
                 // Find the next best place for the next phrase
-                StartAndEnd startAndEnd = GetInitialPositionOnlyAtBeginningFromAvailableSpots(elementToProcess);
-                int phraseLengthLimit = Math.min(foreignSentenceLength - startAndEnd.Start, phraseTableForSentence.getMaxPhraseLength());
-                for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
-                    // Get phrases for this specific startPosition and length
-                    List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startAndEnd.Start, startAndEnd.Start + phraseLength);
-                    if (scoredPairs != null){
-                        for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
-                            TranslationState state = TranslationState.BuildTranslationState(elementToProcess, scoredPair, _languageModel, _distortionModel);
-                            if (state.IsFinal){
-                                SetMaxState(state);
-                            } else {
-                                bean.setPriority(state, state.CurrentScore);
+                List<StartAndEnd> startAndEnds = GetAvailablePositionsAndLengths(elementToProcess);
+                for(StartAndEnd startAndEnd : startAndEnds){
+                    for(int startPosition = startAndEnd.Start; startPosition < startAndEnd.End; startPosition++){
+                        int phraseLengthLimit = Math.min(foreignSentenceLength - startPosition, phraseTableForSentence.getMaxPhraseLength());
+                        for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
+                            // Get phrases for this specific startPosition and length
+                            List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startPosition, startPosition + phraseLength);
+                            if (scoredPairs != null){
+                                for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
+                                    TranslationState state = TranslationState.BuildTranslationState(elementToProcess, scoredPair, _languageModel, _distortionModel);
+                                    if (state.IsFinal){
+                                        SetMaxState(state);
+                                    } else {
+                                        bean.setPriority(state, state.CurrentScore);
+                                    }
+                                }
                             }
+                        }
+                        if (monotonic){
+                            // Monotonic decoders should stop at the first iteration here
+                            break;
                         }
                     }
                 }
