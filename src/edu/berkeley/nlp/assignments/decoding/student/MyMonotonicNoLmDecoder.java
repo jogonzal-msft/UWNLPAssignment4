@@ -41,7 +41,7 @@ public class MyMonotonicNoLmDecoder extends DecoderBase implements Decoder {
 
 			for (TranslationState elementToProcess : elementsToProcess){
 				// Find the next best place for the next phrase
-				StartAndEnd startAndEnd = GetInitialPositionOnlyAtBEginningFromAvailableSpots(elementToProcess);
+				StartAndEnd startAndEnd = GetInitialPositionOnlyAtBeginningFromAvailableSpots(elementToProcess);
 				int phraseLengthLimit = Math.min(foreignSentenceLength - startAndEnd.Start, phraseTableForSentence.getMaxPhraseLength());
 				for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
 					// Get phrases for this specific startPosition and length

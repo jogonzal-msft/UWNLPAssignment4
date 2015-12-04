@@ -97,7 +97,7 @@ public class DecoderBase {
     }
 
     // Only used by Monotonic decoders
-    public static StartAndEnd GetInitialPositionOnlyAtBEginningFromAvailableSpots(TranslationState state) {
+    public static StartAndEnd GetInitialPositionOnlyAtBeginningFromAvailableSpots(TranslationState state) {
         List<StartAndEnd> list = GetAvailablePositionsAndLengths(state);
         if (list.size() != 1){
             throw new StackOverflowError();
