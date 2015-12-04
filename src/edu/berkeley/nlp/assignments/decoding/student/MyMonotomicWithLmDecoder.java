@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by jogonzal on 11/28/2015.
  */
-public class MyMonotomicWithLmDecoder implements Decoder {
+public class MyMonotomicWithLmDecoder extends DecoderBase implements Decoder {
     PhraseTable _phraseTable;
     NgramLanguageModel _nGramLanguageModel;
     DistortionModel _distortionModel;
