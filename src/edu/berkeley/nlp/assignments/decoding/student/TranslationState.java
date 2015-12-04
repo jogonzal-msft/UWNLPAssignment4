@@ -26,7 +26,7 @@ public class TranslationState {
         }
     }
 
-    public static TranslationState BuildTranslationState(TranslationState previousState, int startPosition, int length, ScoredPhrasePairForSentence phrasePair){
+    public static TranslationState BuildTranslationState(TranslationState previousState, ScoredPhrasePairForSentence phrasePair){
         double score = previousState.CurrentScore + phrasePair.score;
         boolean[] translatedFlags = new boolean[previousState.TranslatedFlags.length];
 
