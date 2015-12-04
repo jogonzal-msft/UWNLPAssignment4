@@ -118,7 +118,7 @@ public class DecoderBase {
                 List<StartAndEnd> startAndEnds = GetAvailablePositionsAndLengths(elementToProcess);
                 for(StartAndEnd startAndEnd : startAndEnds){
                     for(int startPosition = startAndEnd.Start; startPosition < startAndEnd.End; startPosition++){
-                        int phraseLengthLimit = Math.min(foreignSentenceLength - startPosition, phraseTableForSentence.getMaxPhraseLength());
+                        int phraseLengthLimit = Math.min(startAndEnd.End - startPosition, phraseTableForSentence.getMaxPhraseLength());
                         for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
                             // Get phrases for this specific startPosition and length
                             List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startPosition, startPosition + phraseLength);

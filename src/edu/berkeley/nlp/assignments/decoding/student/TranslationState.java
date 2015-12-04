@@ -142,6 +142,7 @@ public class TranslationState {
     }
 
     public static List<ScoredPhrasePairForSentence> BuildPhraseListFromState(TranslationState first) {
+        // Simply traverse
         ArrayList<ScoredPhrasePairForSentence> phrases = new ArrayList<>();
         while(first != null){
             phrases.add(0, first.Phrase);
