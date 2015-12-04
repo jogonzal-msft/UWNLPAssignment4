@@ -13,7 +13,7 @@ public class Main {
         MtDecoderTester.main(new String[]{
                 "-path" ,".\\bigdata",
                 // "-decoderType", "MONO_GREEDY"
-                "-decoderType", "MONO_LM"
+                "-decoderType", "MONO_NOLM"
                 // "-decoderType", "MONO_LM"
                 // "-decoderType", "DIST_LM"
         });
