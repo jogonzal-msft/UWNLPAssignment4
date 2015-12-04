@@ -12,16 +12,15 @@ import java.util.List;
  * Created by jogonzal on 11/28/2015.
  */
 public class MyMonotomicWithLmDecoder extends DecoderBase implements Decoder {
-    PhraseTable _phraseTable;
-    NgramLanguageModel _nGramLanguageModel;
-    DistortionModel _distortionModel;
 
     public MyMonotomicWithLmDecoder(PhraseTable tm, NgramLanguageModel lm, DistortionModel dm){
-
+        // In this implementation, only the distortion model is null
+        super(tm, lm, null);
     }
 
     @Override
     public List<ScoredPhrasePairForSentence> decode(List<String> frenchSentence) {
-        return null;
+        // Monotonic
+        return DecodeFrenchSentence(frenchSentence, true);
     }
 }

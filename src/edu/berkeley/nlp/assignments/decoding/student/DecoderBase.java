@@ -1,6 +1,7 @@
 package edu.berkeley.nlp.assignments.decoding.student;
 
-import edu.berkeley.nlp.mt.decoder.Decoder;
+import edu.berkeley.nlp.langmodel.NgramLanguageModel;
+import edu.berkeley.nlp.mt.decoder.DistortionModel;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTable;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTableForSentence;
 import edu.berkeley.nlp.mt.phrasetable.ScoredPhrasePairForSentence;
@@ -16,8 +17,15 @@ public class DecoderBase {
 
     TranslationState MaxState;
 
-    public DecoderBase(){
+    PhraseTable _phraseTable;
+    NgramLanguageModel _languageModel;
+    DistortionModel _distortionModel;
+
+    public DecoderBase(PhraseTable tm, NgramLanguageModel lm, DistortionModel dm){
         MaxState = null;
+        _phraseTable = tm;
+        _languageModel = lm;
+        _distortionModel = dm;
     }
 
     private static Integer BeanSize = 2000;
@@ -30,15 +38,21 @@ public class DecoderBase {
         return list;
     }
 
-    protected void AddInitialStatesToBean(int startPositionLimit, PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue<TranslationState> bean) {
-        for (int startPosition = 0; startPosition < /*This should be foreignSentenceLength, except in the case where we only start from the beginning */ startPositionLimit; startPosition++){
+    protected void AddInitialStatesToBean(PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue<TranslationState> bean, boolean monotonic) {
+
+        int startPositionLimit = foreignSentenceLength; // (unlimited for non-monotonic approaches)
+        if (monotonic){
+            startPositionLimit = 1; // Monotonic approaches will simply look at the first phrases and choose them. Limit exploration to those
+        }
+
+        for (int startPosition = 0; startPosition < startPositionLimit; startPosition++){
             int phraseLengthLimit = Math.min(foreignSentenceLength - startPosition, phraseTableForSentence.getMaxPhraseLength());
             for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
                 // Get phrases for this specific startPosition and length
                 List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startPosition, startPosition + phraseLength);
                 if (scoredPairs != null){
                     for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
-                        TranslationState state = TranslationState.BuildInitialTranslationState(scoredPair, foreignSentenceLength);
+                        TranslationState state = TranslationState.BuildInitialTranslationState(scoredPair, foreignSentenceLength, _languageModel, _distortionModel);
                         if (state.IsFinal){
                             SetMaxState(state);
                         } else {
@@ -61,15 +75,6 @@ public class DecoderBase {
         }
     }
 
-    protected List<ScoredPhrasePairForSentence> BuildPhraseListFromState(TranslationState first) {
-        ArrayList<ScoredPhrasePairForSentence> phrases = new ArrayList<>();
-        while(first != null){
-            phrases.add(0, first.Phrase);
-            first = first.PreviousState;
-        }
-        return phrases;
-    }
-
     public static class StartAndEnd{
         public Integer Start;
         public Integer End;
@@ -80,7 +85,6 @@ public class DecoderBase {
     }
 
     public static List<StartAndEnd> GetAvailablePositionsAndLengths(TranslationState elementsToProcess) {
-
         List<StartAndEnd> positionsAndLengths = new ArrayList<StartAndEnd>();
         for (int i = 0; i < elementsToProcess.TranslatedFlags.length; i++){
             if (elementsToProcess.TranslatedFlags[i] == false){
@@ -103,5 +107,44 @@ public class DecoderBase {
             throw new StackOverflowError();
         }
         return list.get(0);
+    }
+
+    protected List<ScoredPhrasePairForSentence> DecodeFrenchSentence(List<String> frenchSentence, boolean monotonic) {
+        int foreignSentenceLength = frenchSentence.size();
+        PhraseTableForSentence phraseTableForSentence = _phraseTable.initialize(frenchSentence);
+        FastPriorityQueue<TranslationState> bean = new FastPriorityQueue<TranslationState>();
+        MaxState = null;
+
+        AddInitialStatesToBean(phraseTableForSentence, foreignSentenceLength, bean, monotonic);
+
+        while(bean.size() > 0){
+            // Get the list from the bean and erase it
+            List<TranslationState> elementsToProcess = GetListFromBean(bean);
+            bean = new FastPriorityQueue<TranslationState>();
+
+            for (TranslationState elementToProcess : elementsToProcess){
+                // Find the next best place for the next phrase
+                StartAndEnd startAndEnd = GetInitialPositionOnlyAtBeginningFromAvailableSpots(elementToProcess);
+                int phraseLengthLimit = Math.min(foreignSentenceLength - startAndEnd.Start, phraseTableForSentence.getMaxPhraseLength());
+                for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
+                    // Get phrases for this specific startPosition and length
+                    List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startAndEnd.Start, startAndEnd.Start + phraseLength);
+                    if (scoredPairs != null){
+                        for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
+                            TranslationState state = TranslationState.BuildTranslationState(elementToProcess, scoredPair, _languageModel, _distortionModel);
+                            if (state.IsFinal){
+                                SetMaxState(state);
+                            } else {
+                                bean.setPriority(state, state.CurrentScore);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        TranslationState winnerFinalState = MaxState;
+        List<ScoredPhrasePairForSentence> winnerPhrase = TranslationState.BuildPhraseListFromState(winnerFinalState);
+        return winnerPhrase;
     }
 }
