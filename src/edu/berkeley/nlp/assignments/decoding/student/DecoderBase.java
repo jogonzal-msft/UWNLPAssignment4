@@ -1,11 +1,13 @@
 package edu.berkeley.nlp.assignments.decoding.student;
 
 import edu.berkeley.nlp.langmodel.NgramLanguageModel;
+import edu.berkeley.nlp.mt.decoder.Decoder;
 import edu.berkeley.nlp.mt.decoder.DistortionModel;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTable;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTableForSentence;
 import edu.berkeley.nlp.mt.phrasetable.ScoredPhrasePairForSentence;
 import edu.berkeley.nlp.util.FastPriorityQueue;
+import edu.berkeley.nlp.util.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +49,13 @@ public class DecoderBase {
 
         for (int startPosition = 0; startPosition < startPositionLimit; startPosition++){
             int phraseLengthLimit = Math.min(foreignSentenceLength - startPosition, phraseTableForSentence.getMaxPhraseLength());
+            //System.out.println("Initially exploring starting " + startPosition + " for " + phraseLengthLimit);
             for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
                 // Get phrases for this specific startPosition and length
-                List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startPosition, startPosition + phraseLength);
+                int left = startPosition;
+                int right = startPosition + phraseLength;
+                //System.out.println("Exploring " + left + " - " + right);
+                List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(left, right);
                 if (scoredPairs != null){
                     for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
                         TranslationState state = TranslationState.BuildInitialTranslationState(scoredPair, foreignSentenceLength, _languageModel, _distortionModel);
@@ -84,13 +90,13 @@ public class DecoderBase {
         }
     }
 
-    public static List<StartAndEnd> GetAvailablePositionsAndLengths(TranslationState elementsToProcess) {
+    public static List<StartAndEnd> GetAvailablePositionsAndLengths(boolean[] translatedFlags) {
         List<StartAndEnd> positionsAndLengths = new ArrayList<StartAndEnd>();
-        for (int i = 0; i < elementsToProcess.TranslatedFlags.length; i++){
-            if (elementsToProcess.TranslatedFlags[i] == false){
+        for (int i = 0; i < translatedFlags.length; i++){
+            if (translatedFlags[i] == false){
                 int position = i;
                 int length = 0;
-                while(i < elementsToProcess.TranslatedFlags.length && elementsToProcess.TranslatedFlags[i] == false){
+                while(i < translatedFlags.length && translatedFlags[i] == false){
                     length++;
                     i++;
                 }
@@ -108,27 +114,48 @@ public class DecoderBase {
 
         AddInitialStatesToBean(phraseTableForSentence, foreignSentenceLength, bean, monotonic);
 
+        int iteration = 0;
+
         while(bean.size() > 0){
+            // System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
+            // System.out.println("Sentence: ");
+            // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
+            // System.out.println(StrUtils.join(accumulatedSentence));
+
             // Get the list from the bean and erase it
             List<TranslationState> elementsToProcess = GetListFromBean(bean);
             bean = new FastPriorityQueue<TranslationState>();
 
             for (TranslationState elementToProcess : elementsToProcess){
+                // System.out.println(elementToProcess);
                 // Find the next best place for the next phrase
-                List<StartAndEnd> startAndEnds = GetAvailablePositionsAndLengths(elementToProcess);
+                List<StartAndEnd> startAndEnds = GetAvailablePositionsAndLengths(elementToProcess.TranslatedFlags);
                 for(StartAndEnd startAndEnd : startAndEnds){
                     for(int startPosition = startAndEnd.Start; startPosition < startAndEnd.End; startPosition++){
+                        if (_distortionModel != null && (_distortionModel.getDistortionLimit() < Math.abs(startPosition - elementToProcess.Phrase.getEnd()))){
+                            // If we're in range, iterate. If not, break
+                            continue;
+                        }
                         int phraseLengthLimit = Math.min(startAndEnd.End - startPosition, phraseTableForSentence.getMaxPhraseLength());
+
+                        int leftStart = startPosition;
+                        // System.out.println("Initially exploring starting " + leftStart + " for " + phraseLengthLimit);
+
                         for(int phraseLength = 1; phraseLength <= phraseLengthLimit; phraseLength++){
                             // Get phrases for this specific startPosition and length
-                            List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(startPosition, startPosition + phraseLength);
+                            int left = startPosition;
+                            int right = startPosition + phraseLength;
+                            // System.out.println("Phrases " + left + " - " + right);
+                            List<ScoredPhrasePairForSentence> scoredPairs = phraseTableForSentence.getScoreSortedTranslationsForSpan(left, right);
                             if (scoredPairs != null){
                                 for(ScoredPhrasePairForSentence scoredPair : scoredPairs){
                                     TranslationState state = TranslationState.BuildTranslationState(elementToProcess, scoredPair, _languageModel, _distortionModel);
                                     if (state.IsFinal){
                                         SetMaxState(state);
                                     } else {
-                                        bean.setPriority(state, state.CurrentScore);
+                                        if (monotonic || !state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
+                                            bean.setPriority(state, state.CurrentScore);
+                                        }
                                     }
                                 }
                             }
@@ -140,6 +167,7 @@ public class DecoderBase {
                     }
                 }
             }
+            iteration++;
         }
 
         TranslationState winnerFinalState = MaxState;

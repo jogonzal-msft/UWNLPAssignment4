@@ -5,6 +5,7 @@ import edu.berkeley.nlp.langmodel.NgramLanguageModel;
 import edu.berkeley.nlp.mt.decoder.Decoder;
 import edu.berkeley.nlp.mt.decoder.DistortionModel;
 import edu.berkeley.nlp.mt.phrasetable.ScoredPhrasePairForSentence;
+import edu.berkeley.nlp.util.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,16 @@ import java.util.List;
  * Created by jogonzal on 12/3/2015.
  */
 public class TranslationState {
+
+    @Override
+    public String toString() {
+        List<Integer> list = new ArrayList<>(TranslatedFlags.length);
+        for (boolean element : TranslatedFlags){
+            list.add(element ? 1 : 0);
+        }
+        return "[State " + StrUtils.join(list) + ", score=" + CurrentScore + "Position=" + Phrase.getEnd() + "Phrase=" + Phrase + "]";
+    }
+
     public boolean[] TranslatedFlags;
     public double CurrentScore;
     public TranslationState PreviousState;
@@ -55,6 +66,9 @@ public class TranslationState {
             translatedFlags[i] = previousState.TranslatedFlags[i];
         }
         for (int i = phrasePair.getStart(); i < phrasePair.getEnd(); i++){
+            if (translatedFlags[i]){
+                throw new StackOverflowError();
+            }
             translatedFlags[i] = true;
         }
 
@@ -72,7 +86,7 @@ public class TranslationState {
         List<ScoredPhrasePairForSentence> phrases = TranslationState.BuildPhraseListFromState(state);
 
         if (lm != null && dm != null){
-            return Decoder.StaticMethods.scoreHypothesis(phrases, lm, dm);
+            return CustomScoreFunction(phrases, lm, dm);
         }
 
         if (lm != null) {
@@ -153,5 +167,39 @@ public class TranslationState {
             first = first.PreviousState;
         }
         return phrases;
+    }
+
+    public static double CustomScoreFunction(List<ScoredPhrasePairForSentence> hyp, NgramLanguageModel languageModel, DistortionModel dm){
+        double score = 0.0;
+        double dmScore = 0.0;
+        ScoredPhrasePairForSentence last = null;
+        for (ScoredPhrasePairForSentence s : hyp) {
+            score += s.score;
+            final int lastEnd = last == null ? 0 : last.getEnd();
+            final double distortionScore = dm.getDistortionScore(lastEnd, s.getStart());
+            dmScore += distortionScore;
+            last = s;
+        }
+        score += Decoder.StaticMethods.scoreSentenceWithLm(Decoder.StaticMethods.extractEnglish(hyp), languageModel, EnglishWordIndexer.getIndexer());
+        score += dmScore;
+        return score;
+    }
+
+    public boolean ShouldBeAvoided(int distortionLimit) {
+        // Check if this state leaves blanks that are at more than "distortionLimit" far from any blank or the current position
+        List<DecoderBase.StartAndEnd> startAndEnds = DecoderBase.GetAvailablePositionsAndLengths(TranslatedFlags);
+        int currentPosition = Phrase.getEnd();
+        // The distance between those should NOT be more than the distortion limit
+        DecoderBase.StartAndEnd previous = null;
+        for(DecoderBase.StartAndEnd startAndEnd : startAndEnds){
+            if (previous == null){
+                previous = startAndEnd;
+                continue;
+            }
+            if (startAndEnd.Start - previous.End > distortionLimit){
+                return true;
+            }
+        }
+        return false;
     }
 }
