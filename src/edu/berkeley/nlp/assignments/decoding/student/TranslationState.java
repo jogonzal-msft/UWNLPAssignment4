@@ -59,9 +59,13 @@ public class TranslationState {
         }
 
         TranslationState state = new TranslationState(translatedFlags, previousState, phrasePair);
-        state.CurrentScore = ScoreStateInefficient(state, lm, dm);
+        state.CurrentScore = ScoreState(state, lm, dm);
 
         return state;
+    }
+
+    private static double ScoreState(TranslationState state, NgramLanguageModel lm, DistortionModel dm){
+        return ScoreStateInefficient(state, lm, dm);
     }
 
     private static double ScoreStateInefficient(TranslationState state, NgramLanguageModel lm, DistortionModel dm) {
@@ -88,7 +92,7 @@ public class TranslationState {
         }
     }
 
-    /*private static double ScoreStateEfficient(TranslationState state, NgramLanguageModel lm, DistortionModel dm) {
+    private static double ScoreStateEfficient(TranslationState state, NgramLanguageModel lm, DistortionModel dm) {
         double accumulatedScore = 0;
         if (state.PreviousState != null){
             accumulatedScore = state.PreviousState.CurrentScore;
@@ -122,7 +126,7 @@ public class TranslationState {
         }
 
         return accumulatedScore;
-    }*/
+    }
 
     public static TranslationState BuildInitialTranslationState(ScoredPhrasePairForSentence firstPair, Integer sentenceLength, NgramLanguageModel lm, DistortionModel dm){
 
@@ -136,7 +140,7 @@ public class TranslationState {
         }
 
         TranslationState state = new TranslationState(flags, null, firstPair);
-        state.CurrentScore = ScoreStateInefficient(state, lm, dm);
+        state.CurrentScore = ScoreState(state, lm, dm);
 
         return state;
     }
