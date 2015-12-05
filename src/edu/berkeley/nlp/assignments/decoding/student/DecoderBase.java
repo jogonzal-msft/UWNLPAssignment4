@@ -1,13 +1,11 @@
 package edu.berkeley.nlp.assignments.decoding.student;
 
 import edu.berkeley.nlp.langmodel.NgramLanguageModel;
-import edu.berkeley.nlp.mt.decoder.Decoder;
 import edu.berkeley.nlp.mt.decoder.DistortionModel;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTable;
 import edu.berkeley.nlp.mt.phrasetable.PhraseTableForSentence;
 import edu.berkeley.nlp.mt.phrasetable.ScoredPhrasePairForSentence;
 import edu.berkeley.nlp.util.FastPriorityQueue;
-import edu.berkeley.nlp.util.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +28,17 @@ public class DecoderBase {
         _distortionModel = dm;
     }
 
-    private static Integer BeanSize = 2000;
-    public static List<TranslationState> GetListFromBean(FastPriorityQueue<TranslationState> bean){
-        int elementsToDequeue = Math.min(BeanSize, bean.size());
+    private static Integer BeamSize = 2000;
+    public static List<TranslationState> GetListFromBeam(FastPriorityQueue<TranslationState> beam){
+        int elementsToDequeue = Math.min(BeamSize, beam.size());
         ArrayList<TranslationState> list = new ArrayList<TranslationState>(elementsToDequeue);
         for (int i = 0; i < elementsToDequeue; i++){
-            list.add(bean.removeFirst());
+            list.add(beam.removeFirst());
         }
         return list;
     }
 
-    protected void AddInitialStatesToBean(PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue<TranslationState> bean, boolean monotonic) {
+    protected void AddInitialStatesToBeam(PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue<TranslationState> beam, boolean monotonic) {
 
         int startPositionLimit = foreignSentenceLength; // (unlimited for non-monotonic approaches)
         if (monotonic){
@@ -63,12 +61,12 @@ public class DecoderBase {
                             SetMaxState(state);
                         } else {
                             if (monotonic){
-                                bean.setPriority(state, state.CurrentScore);
+                                beam.setPriority(state, state.CurrentScore);
                                 continue;
                             }
 
                             if (!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
-                                bean.setPriority(state, state.CurrentScore);
+                                beam.setPriority(state, state.CurrentScore);
                             }
                         }
                     }
@@ -116,22 +114,22 @@ public class DecoderBase {
     protected List<ScoredPhrasePairForSentence> DecodeFrenchSentence(List<String> frenchSentence, boolean monotonic) {
         int foreignSentenceLength = frenchSentence.size();
         PhraseTableForSentence phraseTableForSentence = _phraseTable.initialize(frenchSentence);
-        FastPriorityQueue<TranslationState> bean = new FastPriorityQueue<TranslationState>();
+        FastPriorityQueue<TranslationState> beam = new FastPriorityQueue<TranslationState>();
         MaxState = null;
 
-        AddInitialStatesToBean(phraseTableForSentence, foreignSentenceLength, bean, monotonic);
+        AddInitialStatesToBeam(phraseTableForSentence, foreignSentenceLength, beam, monotonic);
 
         int iteration = 0;
 
-        while(bean.size() > 0){
-            // System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
+        while(beam.size() > 0){
+            // System.out.println("Best translation for iteration " + iteration  +":\n\t" + beam.getFirst());
             // System.out.println("Sentence: ");
-            // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
+            // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(beam.getFirst()));
             // System.out.println(StrUtils.join(accumulatedSentence));
 
-            // Get the list from the bean and erase it
-            List<TranslationState> elementsToProcess = GetListFromBean(bean);
-            bean = new FastPriorityQueue<TranslationState>();
+            // Get the list from the beam and erase it
+            List<TranslationState> elementsToProcess = GetListFromBeam(beam);
+            beam = new FastPriorityQueue<TranslationState>();
 
             for (TranslationState elementToProcess : elementsToProcess){
                 // System.out.println(elementToProcess);
@@ -161,12 +159,12 @@ public class DecoderBase {
                                         SetMaxState(state);
                                     } else {
                                         if (monotonic){
-                                            bean.setPriority(state, state.CurrentScore);
+                                            beam.setPriority(state, state.CurrentScore);
                                             continue;
                                         }
 
                                         if(!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
-                                            bean.setPriority(state, state.CurrentScore);
+                                            beam.setPriority(state, state.CurrentScore);
                                         }
                                     }
                                 }
