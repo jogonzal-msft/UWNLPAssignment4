@@ -124,10 +124,10 @@ public class DecoderBase {
         int iteration = 0;
 
         while(bean.size() > 0){
-            System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
-            System.out.println("Sentence: ");
-            List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
-            System.out.println(StrUtils.join(accumulatedSentence));
+            // System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
+            // System.out.println("Sentence: ");
+            // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
+            // System.out.println(StrUtils.join(accumulatedSentence));
 
             // Get the list from the bean and erase it
             List<TranslationState> elementsToProcess = GetListFromBean(bean);
