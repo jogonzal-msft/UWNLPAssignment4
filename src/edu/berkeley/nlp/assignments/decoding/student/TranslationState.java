@@ -181,25 +181,31 @@ public class TranslationState {
             last = s;
         }
         score += Decoder.StaticMethods.scoreSentenceWithLm(Decoder.StaticMethods.extractEnglish(hyp), languageModel, EnglishWordIndexer.getIndexer());
-        score += dmScore;
+        score += dmScore * 7;
         return score;
     }
 
     public boolean ShouldBeAvoided(int distortionLimit) {
         // Check if this state leaves blanks that are at more than "distortionLimit" far from any blank or the current position
         List<DecoderBase.StartAndEnd> startAndEnds = DecoderBase.GetAvailablePositionsAndLengths(TranslatedFlags);
-        int currentPosition = Phrase.getEnd();
         // The distance between those should NOT be more than the distortion limit
-        DecoderBase.StartAndEnd previous = null;
-        for(DecoderBase.StartAndEnd startAndEnd : startAndEnds){
-            if (previous == null){
-                previous = startAndEnd;
-                continue;
+        int currentPosition = Phrase.getEnd();
+        if (startAndEnds.size() > 1){
+            DecoderBase.StartAndEnd previous = null;
+            for(DecoderBase.StartAndEnd startAndEnd : startAndEnds){
+                if (previous == null){
+                    previous = startAndEnd;
+                    continue;
+                }
+                if (startAndEnd.Start - previous.End > distortionLimit){
+                    return true;
+                }
             }
-            if (startAndEnd.Start - previous.End > distortionLimit){
-                return true;
-            }
+            return false;
+        } else if (startAndEnds.size() == 1){
+            return (Math.abs(startAndEnds.get(0).Start - currentPosition) > distortionLimit) && (Math.abs(startAndEnds.get(0).End - currentPosition) > distortionLimit);
         }
-        return false;
+
+        throw new StackOverflowError();
     }
 }

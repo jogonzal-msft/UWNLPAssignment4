@@ -62,7 +62,14 @@ public class DecoderBase {
                         if (state.IsFinal){
                             SetMaxState(state);
                         } else {
-                            bean.setPriority(state, state.CurrentScore);
+                            if (monotonic){
+                                bean.setPriority(state, state.CurrentScore);
+                                continue;
+                            }
+
+                            if (!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
+                                bean.setPriority(state, state.CurrentScore);
+                            }
                         }
                     }
                 }
@@ -117,10 +124,10 @@ public class DecoderBase {
         int iteration = 0;
 
         while(bean.size() > 0){
-            // System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
-            // System.out.println("Sentence: ");
-            // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
-            // System.out.println(StrUtils.join(accumulatedSentence));
+            System.out.println("Best translation for iteration " + iteration  +":\n\t" + bean.getFirst());
+            System.out.println("Sentence: ");
+            List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(bean.getFirst()));
+            System.out.println(StrUtils.join(accumulatedSentence));
 
             // Get the list from the bean and erase it
             List<TranslationState> elementsToProcess = GetListFromBean(bean);
@@ -153,7 +160,12 @@ public class DecoderBase {
                                     if (state.IsFinal){
                                         SetMaxState(state);
                                     } else {
-                                        if (monotonic || !state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
+                                        if (monotonic){
+                                            bean.setPriority(state, state.CurrentScore);
+                                            continue;
+                                        }
+
+                                        if(!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
                                             bean.setPriority(state, state.CurrentScore);
                                         }
                                     }
