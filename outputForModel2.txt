@@ -1,0 +1,560 @@
+"C:\Program Files\Java\jdk1.8.0_65\bin\java" -Didea.launcher.port=7533 "-Didea.launcher.bin.path=C:\Program Files (x86)\JetBrains\IntelliJ IDEA 14.1.5\bin" -Dfile.encoding=windows-1252 -classpath "C:\Program Files\Java\jdk1.8.0_65\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_65\jre\lib\ext\zipfs.jar;C:\Users\jogonzal\Documents\GitHub\UWNLPAssignment4\out\production\UWNLPAssignment4;C:\Users\jogonzal\Documents\GitHub\UWNLPAssignment4\mt-lib.jar;C:\Program Files (x86)\JetBrains\IntelliJ IDEA 14.1.5\lib\idea_rt.jar" com.intellij.rt.execution.application.AppMain Main -cp mt-lib.jar:mt-submit.jar -server -mx2000m -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSConcurrentMTEnabled
+Hello World!
+Using base path: .\bigdata
+Using decoderType: MONO_LM
+Decoding all sentences.
+Reading phrase table from file .\bigdata\phrasetable.txt.gz {
+Line 100000
+Line 200000
+Line 300000
+Line 400000
+Line 500000
+Line 600000
+Line 700000
+Line 800000
+Line 900000
+Line 1000000
+Line 1100000
+Line 1200000
+} [6s]
+Parsing ARPA language model file {
+	Reading 1-grams {
+		Read 0
+		495172 1-gram read.
+	} [2s]
+	Reading 2-grams {
+		Read 1000000
+		Read 2000000
+		Read 3000000
+		Read 4000000
+		Read 5000000
+		Read 6000000
+		Read 7000000
+		Read 8000000
+		8374230 2-gram read.
+	} [18s]
+	Reading 3-grams {
+		Read 9000000
+		Read 10000000
+		Read 11000000
+		Read 12000000
+		Read 13000000
+		Read 14000000
+		Read 15000000
+		Read 16000000
+		Read 17000000
+		Read 18000000
+		Read 19000000
+		Read 20000000
+		Read 21000000
+		Read 22000000
+	} [32s]
+} [54s]
+Memory usage is 959M
+Decoding all test sentences
+Model score:	-18.44871872678399
+Input:		monsieur le président , ce que nous devrons toutefois également faire à biarritz , c' est regarder un peu plus loin .
+Hypothesis	mr president , what we will , however , have also done in biarritz , that is to look a little further .
+Reference:	what i would also call for , however , is to look beyond immediate concerns in biarritz .
+
+Model score:	-49.16831769406795
+Input:		les élus que nous sommes avons au moins autant le devoir de l' encourager à progresser , en dépit de l' adversité , que de relayer les messages que nous recevons de l' opinion publique dans chacun de nos pays .
+Hypothesis	the elected representatives that we are have at least as much the duty to encourage it to make progress , in spite of hardship , that to take the messages we receive from the public opinion in each of our countries .
+Reference:	we , as elected representatives , are at least as responsible for encouraging it to make progress in the face of adversity as we are for relaying the messages that we receive from public opinion in each of our countries .
+
+Model score:	-24.001789620965713
+Input:		au regard des événements de ces derniers temps , la question du prix de l' essence me semble elle aussi particulièrement remarquable .
+Hypothesis	in view of the events of recent times , the issue of the price of petrol seems to me it also particularly remarkable .
+Reference:	with an eye to recent events , the issue of petrol prices also seems to me to be particularly noteworthy .
+
+Model score:	-13.48188923448324
+Input:		à l' heure actuelle , le conseil est en train d' examiner l' inclusion de tels mécanismes dans l' article 7 .
+Hypothesis	at the moment , the council is in the process of considering the inclusion of such mechanisms in article 7 .
+Reference:	at present , the council is talking about incorporating such mechanisms in article 7 .
+
+Model score:	-52.37870955966413
+Input:		deuxièmement , dans la transparence pour les citoyens , qui connaissent à présent les droits dont ils disposent vis-à-vis de ceux qui appliquent et élaborent le droit européen , et pour ceux qui , justement , appliquent et élaborent ce droit européen .
+Hypothesis	secondly , in the transparency for the citizens , which are now the rights which they have towards those who apply and develop the european law , and for those who , rightly , apply and develop this european law .
+Reference:	secondly , it lies in its transparency for the public , who now know what rights they have in respect of those who create and apply european law , and in its transparency for those who do precisely that , draft or apply european law .
+
+Model score:	-17.08739557862282
+Input:		je suis en accord avec lui sur le rôle central que doit conserver à l' avenir la commission comme garante de l' intérêt général communautaire .
+Hypothesis	i am in agreement with him on the central role that must remain in the future the commission as guarantor of the general interest community .
+Reference:	i agree with him that the commission must continue to play a pivotal role as guardian of the common interests of the community .
+
+Model score:	-122.33154416315259
+Input:		c' est pourquoi je crois qu' il est très important que le président de l' euro-groupe - que nous avons voulu créer - conserve tout son rôle en la matière .
+Hypothesis	that is why i believe that it is very important that the president of the euro-groupe - that we have wanted to create - retains its full part in that regard .
+Reference:	that is why i believe it is very important for the chairman of the eurogroup - which we chose to set up - to continue to play a full role in this area .
+
+Model score:	-15.520644001960754
+Input:		je crois , pour ma part , que c' est précisément pour cette raison que la méthode de la convention est bonne et qu' elle doit être réutilisée fortement à l' avenir .
+Hypothesis	i believe , for my part , that it is precisely for this reason that the method of the convention is good and that it must be be recovered strongly in the future .
+Reference:	i for my part believe that it is precisely for this reason that the convention method is a good one and that ample use should again be made of it in the future .
+
+Model score:	-3.1172190809249827
+Input:		monsieur le président , monsieur le président du conseil , mesdames et messieurs les députés , je vous remercie pour la courtoisie avec laquelle vous avez accueilli mon discours .
+Hypothesis	mr president , mr president of the council , ladies and gentlemen , i thank you for the courtesy with which you have welcomed my speech .
+Reference:	mr president , mr president-in-office of the council , ladies and gentlemen , thank you for your kind accolade and thank you also to those who have gently reproached me for not making this speech earlier .
+
+Model score:	-76.92458234816789
+Input:		nous devrons travailler sur la coopération renforcée , rendue plus aisée et efficace pour obtenir ce résultat : la coopération renforcée qui est la voie immédiate , la plus simple pour pouvoir faire ce pas vers l' intégration , dont la nécessité a été affirmée par tant d' intervenants aujourd' hui .
+Hypothesis	we will have to work on the strengthened cooperation , made more easy and effective to achieve this result : the strengthened cooperation which is the way immediate , the more simple to be able to make this step towards the integration , which the need has been affirmed by so many speakers today .
+Reference:	we must work on closer cooperation and make it simpler and more effective in order to bring this about : closer cooperation is the immediate , simplest way forward if we are to take that additional step towards integration , the need for which has been confirmed by the many powerful speeches which i have heard today .
+
+Model score:	5.699626003727317
+Input:		le débat est clos .
+Hypothesis	the debate is closed .
+Reference:	the debate is closed .
+
+Model score:	2.438448694199323
+Input:		les amendements 10 , 11 et 15 sont acceptables en principe .
+Hypothesis	amendments nos 10 , 11 and 15 are acceptable in principle .
+Reference:	amendments nos 10 , 11 and 15 are acceptable in principle .
+
+Model score:	-76.93765563674272
+Input:		toutefois , cette limitation de l' influence du parlement est acceptable vu le haut degré de technicité des questions concernées et les efforts de la commission en vue d' informer le pe en temps opportun des plans visant à élaborer de nouveaux règlements via ses comités permanents compétents .
+Hypothesis	however , this restriction of the influence of the parliament is acceptable given the high degree of technical nature of the issues concerned and the efforts of the commission in order to inform the ep in good time of the plans to develop new regulations through its committees permanent competent .
+Reference:	however , this reduction of parliament 's influence is acceptable given the highly technical nature of the issues concerned and the commission 's endeavours to inform the ep in good time of plans to draw up new regulations via its competent standing committees .
+
+Model score:	-56.73437338203192
+Input:		on sait par exemple qu' en france , le chiffre des rentrées fiscales varie selon que l' on prend les statistiques de la direction générale de la comptabilité publique ou celles de la comptabilité nationale .
+Hypothesis	we know , for example , that in france , the figure of revenue tax varies according to that the one takes the statistics of the directorate-general for the accounting public or those of the national accounts .
+Reference:	it is known that in france , for instance , the figure for tax receipts varies according to whether you use the statistics of the direction générale de la comptabilité publique or those of the comptabilité nationale .
+
+Model score:	-84.31806428335608
+Input:		une politique allant dans le sens d' une organisation rationnelle , efficace et sûre , devrait donner la priorité aux investissements dans un service public de chemin de fer européen plutôt que de se contenter d' uniformiser les conditions de concurrence entre transporteurs routiers , surtout préoccupés d' accroître leurs profits privés .
+Hypothesis	a policy which goes in the sense of a organisation rational , effective and safe , should give priority to investment in a public service of european railway rather that of simply of standardising the conditions of competition between road hauliers , above all concerned to increase their profits private .
+Reference:	a policy which worked towards the rational , efficient and safe organisation of transport ought to prioritise investment in the european public rail service rather than confining itself to standardising the conditions of competition between road transporters , that are principally concerned with maximising their private profits .
+
+Model score:	-36.34961888164282
+Input:		ces bus pourront alors gagner les campagnes , certes , mais , dans la pratique , de nombreux endroits leur resteront inaccessibles .
+Hypothesis	these buses can then win the campaigns , of course , but , in practice , many places their will remain inaccessible .
+Reference:	these buses may have access to that country , but in practice , they will be unable to reach many places .
+
+Model score:	-24.808550763055678
+Input:		le rapport soutient l' approche du conseil et de la commission , et insiste sur la nécessité d' introduire des mesures de réglementation , notamment en ce qui concerne les pensions , les prospectus internationaux et un brevet communautaire .
+Hypothesis	the report supports the approach of the council and of the commission , and stresses the need to introduce measures of regulation , in particular in regard to pensions , the prospectus international and a community patent .
+Reference:	the report supports the council 's and commission 's approach and emphasises that a number of regulatory measures need to be introduced , namely on pensions , cross-border prospectuses and a community patent .
+
+Model score:	-20.7870868377015
+Input:		le problème le plus délicat de cette nouvelle charte n' est pas son contenu mais son statut juridique .
+Hypothesis	the toughest problem of this new charter is not its content but its legal status .
+Reference:	the most difficult problem facing this new charter is not its actual content but whether it has legal status .
+
+Model score:	-27.597070949114865
+Input:		monsieur le président , j' ai voté pour cette charte en raison , notamment , de l' influence exercée par notre collègue ingo friedrich et par m. roman herzog sur le contenu de celle-ci .
+Hypothesis	mr president , i have voted in favour of this charter because , in particular , of the influence exerted by our colleague ingo friedrich and by mr novel herzog on the content of this .
+Reference:	mr president , i voted in favour of this charter , not least because of the influence which our colleague , ingo friedrich , and professor herzog have exerted on its content .
+
+Model score:	-23.698035581409925
+Input:		nous estimons que la charte constitue , en tant que document politique , un bon point de départ pour ce dialogue essentiel , qui doit démarrer dès maintenant .
+Hypothesis	we believe that the charter is , as a policy document , a good starting point for this dialogue essential , which should start right now .
+Reference:	we believe that , as a political document , the charter is a good point of departure for this wholly necessary dialogue , which is now about to begin .
+
+Model score:	-22.988894662559034
+Input:		cela constituerait une solution transitoire qui permettrait de conduire à terme à une charte à valeur contraignante .
+Hypothesis	this would be a transitional solution that would enable us to lead to a charter to legally binding .
+Reference:	that would be an interim solution which would make it possible to work towards a binding charter in the long term .
+
+Model score:	-16.007522568255663
+Input:		cette charte est bien en deçà de la convention européenne des droits de l' homme , bien en deçà des conventions ou traités nationaux .
+Hypothesis	this charter is far short of the european convention of human rights , well below the conventions or treaties national .
+Reference:	this charter lags some way behind the european convention on human rights , and behind national conventions or treaties .
+
+Model score:	-7.264097957275808
+Input:		. j' ai voté contre l' éventuelle insertion dans les traités de la version de la charte des droits fondamentaux qui nous est présentée .
+Hypothesis	. i voted against the possible inclusion in the treaties of the version of the charter of fundamental rights , which is presented to us .
+Reference:	. ( fr ) i voted against incorporating the version of the charter of fundamental rights we have before us into the treaties .
+
+Model score:	2.0631767710112
+Input:		( a5-0244 / 00 ) de m. wiersma , sur la slovaquie ( com ( 1999 ) 511 - c5-0034 / 2000 - 1997 / 2173 ( cos ) ) ;
+Hypothesis	( a5-0244 / 00 ) by mr wiersma , on the slovak republic ( com ( 1999 ) 511 - c5-0034 / 2000 - 1997 / 2173 ( cos ) ) ;
+Reference:	( a5-0244 / 2000 ) by mr wiersma on the slovak republic ( com ( 1999 ) 511 - c5-0034 / 2000 - 1997 / 2173 ( cos ) ) ;
+
+Model score:	-10.860110965967177
+Input:		il doit donc être clair que le respect intégral des critères de copenhague est le seul critère essentiel .
+Hypothesis	it must therefore be clear that full compliance with the copenhagen criteria is the only essential criterion .
+Reference:	for this reason , it must be clear that full satisfaction of the copenhagen criteria is the only essential point .
+
+Model score:	-51.08731020234526
+Input:		à cet égard , je veux saluer le travail qui a été accompli par le parlement européen sous la forme d' un rapport consacré à chacun des douze pays candidats entrés en négociation et d' un rapport d' ensemble du président brok , sur lequel j' aurai l' occasion de revenir plus particulièrement au cours de mon intervention .
+Hypothesis	in this regard , i want to welcome the work that has been done by the european parliament in the form of a report devoted to each of the twelve candidate countries entered into negotiations and of a report of the whole of the president brok , on which i have the opportunity to return more particularly in the course of my speech .
+Reference:	in this respect , i wish to congratulate the european parliament on the work accomplished in the reform of a report devoted to each of the twelve candidate countries which have entered into negotiations , and an overall report by mr brok , which i shall have the opportunity to comment on in further detail in my speech .
+
+Model score:	-2.928412368297579
+Input:		je pense naturellement à la politique agricole commune et aux politiques de développement régional .
+Hypothesis	i believe , of course , to the common agricultural policy and to policies for regional development .
+Reference:	i am , of course , thinking of the common agricultural policy and the regional development policies .
+
+Model score:	-32.43003780975937
+Input:		bien entendu , il n' est pas exclu que les pays candidats saisissent ces occasions pour évoquer une fois encore - vous en avez parlé , monsieur le président - la question de la date des élargissements .
+Hypothesis	of course , it is not excluded that the candidate countries to seize these opportunities to raise once again - you spoke about that , mr president , the issue of the date of the enlargements .
+Reference:	it is not , of course , impossible that the candidate countries will seize this opportunity to once again bring up , as you said , mr president - the subject of the dates for enlargement .
+
+Model score:	-2.0236508351564417
+Input:		l' élargissement est un projet historique .
+Hypothesis	enlargement is a historic project .
+Reference:	enlargement is a historic undertaking .
+
+Model score:	-21.059058204889297
+Input:		mais ce succès ne porte pas seulement sur le moment - si important soit-il .
+Hypothesis	but this success is not only on the moment - so important is fine .
+Reference:	but success does not depend on the time factor alone , however important it may be .
+
+Model score:	-22.33412114813924
+Input:		si elles ne règnent pas partout en europe , elles sont partout menacées .
+Hypothesis	if they do to reign not everywhere in europe , they are everywhere threatened .
+Reference:	and if they do not apply throughout europe , then they are in jeopardy throughout europe .
+
+Model score:	-29.998001151829957
+Input:		les chapitres sont ouverts ou conclus en fonction de l' état réel des préparatifs et du progrès effectif des négociations .
+Hypothesis	the chapters are open or concluded according to the real state of preparations and the progress of effective of the negotiations .
+Reference:	chapters are opened and closed depending on the current state of preparations and actual progress in negotiations .
+
+Model score:	-36.67694983169436
+Input:		dans le domaine du marché intérieur , nous devons veiller à ce que les délais transitoires restent aussi limités que possible , tant sur le plan temporel qu' en matière de contenu .
+Hypothesis	in the area of the internal market , we must ensure that the transition periods are still too limited as possible , both on the plan needed in the matter of content .
+Reference:	as far as the internal market is concerned , we must ensure that transitional periods are kept to a minimum in terms of both time and content .
+
+Model score:	-30.988602893352507
+Input:		nous devons amener des réponses politiques à des questions politiques . il faut bien les faire passer .
+Hypothesis	we need to bring in political responses to the political issues . it must be well the to pass on .
+Reference:	we need political answers to political questions and we need to get them across properly .
+
+Model score:	-36.24786458414048
+Input:		essayez de vous imaginer que la guerre froide dure toujours et que nous devions alors résoudre les problèmes du kosovo , de la bosnie-herzégovine ou de notre relation avec la serbie .
+Hypothesis	try to imagine that the cold war has been going on always and that we must then resolve the problems of kosovo , of the bosnia and herzegovina or of our relationship with serbia .
+Reference:	imagine how we would struggle to resolve the issue of kosovo , bosnia herzegovina or our relations with serbia in a state of cold war .
+
+Model score:	-10.96419139921665
+Input:		entamons également un débat avec notre propre population .
+Hypothesis	commencing also a debate with our own people .
+Reference:	we should start with a debate involving our own people .
+
+Model score:	-11.442369246929882
+Input:		nous pourrons et nous voulons souscrire à tout cela .
+Hypothesis	we can and we want to subscribe to all this .
+Reference:	we will be able to support all of this and we also want to support it .
+
+Model score:	-66.67280136033892
+Input:		notre débat sur les craintes de l' élargissement repose en grande partie sur l' exagération ; aussi , pour faire face à l' exagération des populistes , nous devons renouer avec la politique populaire à travers la réflexion .
+Hypothesis	our debate on the fears of enlargement is based in large part on the exaggeration ; also , to face up to the exaggeration of populist , we must be relaunched with the policy popular through the reflection .
+Reference:	much of our debate about fears about enlargement is based on exaggeration , but in order to confront the populists who exaggerate , we must connect with popular politics through reflection .
+
+Model score:	-139.13480104252696
+Input:		notre groupe demande que l' on fixe à nice , ou immédiatement après le sommet de nice , les dates-butoirs pour mener à terme les négociations d' adhésion .
+Hypothesis	our group request that the it sets to nice , or immediately after the summit of nice , the dates-butoirs to complete the accession negotiations .
+Reference:	our group requires target dates to be set at the nice summit or immediately afterwards , by which negotiations on membership should be concluded .
+
+Model score:	-19.931473100539286
+Input:		monsieur le président , notre groupe , gauche unitaire européenne / gauche verte nordique , partage nombre de considérations et affirmations concernant l' élargissement contenues dans le rapport de m. brok , nous apprécions l' énorme travail réalisé par celui-ci pour ce précieux rapport .
+Hypothesis	mr president , our group , european united left / nordic green left , agree with a number of considerations and of the assertions made about enlargement contained in the report by mr brok , we appreciate the enormous work done by it for the valuable report .
+Reference:	mr president , our group , the european united left / nordic green left , shares many of the considerations and opinions on enlargement contained in mr brok ' s report and we appreciate the enormous effort he has put into his courageous report .
+
+Model score:	-31.04554037511349
+Input:		sixièmement , nous pensons que lier dans la pratique l' élargissement à l' intégration préalable de ces pays dans l' otan était une erreur .
+Hypothesis	sixthly , we believe that link in the practice enlargement to the integration prior to these countries in nato was a mistake .
+Reference:	sixthly , we believe it has been a mistake to link enlargement in practice with the prior integration of these countries into nato .
+
+Model score:	-88.73533184271304
+Input:		comme nombre de collègues , j' ai fort apprécié ce matin les déclarations du président prodi , j' ai enregistré ce que nous a dit m. moscovici qui , avec une prudence toute diplomatique , nous a toutefois mis en garde contre le fait que , pour le moment , nous ne sommes pas en présence d' un scénario optimiste quant aux résultats possibles au cours des deux ou trois prochains mois .
+Hypothesis	as number of colleagues , i have greatly appreciated this morning the statements by the president prodi , i have recorded this that we said mr moscovici who , with a caution any diplomatic , we , however , has warned against the fact that , for the moment , we are not in the presence of a scenario optimistic about the possible results in the course of the two or three months .
+Reference:	in company with a large number of other members , i greatly appreciated president prodi ' s declarations and i took note of mr moscovici ' s words when , with diplomatic caution , he too warned us not to expect much in the way of results over the next two or three months .
+
+Model score:	-18.005340976566075
+Input:		je prie donc m. le ministre et le m. le commissaire d' en tenir compte pour la longueur de leurs interventions .
+Hypothesis	i would therefore ask the minister and the commissioner to be taken into account for the length of their interventions .
+Reference:	i would therefore ask the minister and the commissioner to take account of this and adjust their speaking times accordingly .
+
+Model score:	-44.402442291378975
+Input:		moi , j' en conclus qu' il faut en parler plus , mais aussi en parler bien et en parler mieux .
+Hypothesis	me , i gather it need to talk about this more , but also in speak well and in talking about better .
+Reference:	my own conclusion is that we should discuss it more , but also discuss it properly and better .
+
+Model score:	-12.421829246282579
+Input:		cela dit , je pense qu' il n' était pas mauvais de poser la question .
+Hypothesis	that said , i believe that it was not wrong to ask the question .
+Reference:	that being said , i think it was not a bad idea to ask the question .
+
+Model score:	-25.633353940397498
+Input:		je ne veux pas qu' apparaissent des reliquats comme cela a été le cas dans d' autres domaines de l' aide extérieure pendant de nombreuses années .
+Hypothesis	i do not want that appear of leftovers as has been the case in other areas of external aid for many years .
+Reference:	i do not want to allow any backlogs to build up here , as has happened in other areas of foreign aid over a number of years .
+
+Model score:	-34.292194164954125
+Input:		cependant , le fait est qu' en l' état actuel des choses , ce 3 octobre 2000 , je ne peux vous dire d' aucun pays engagé dans le processus d' adhésion quand il sera prêt à nous rejoindre .
+Hypothesis	however , the fact is that in the current state of things , this 3 october 2000 , i cannot tell you of any country committed to the process of accession when it will be prepared to join us .
+Reference:	but the fact remains that , as things stand today , 3 october 2000 , i cannot tell you when any single country in the accession process will be ready for accession .
+
+Model score:	-40.52438580319286
+Input:		je peux également vous en donner la raison : ces peuples voulaient une fois pour toutes être du bon côté , ce qui signifie être fermement ancrés dans la famille des nations démocratiques .
+Hypothesis	i can also give you the right : these peoples wanted once and for all be of the good side , this means be firmly anchored in the family of democratic nations .
+Reference:	and i can tell you why ; because these people wanted to be on the right side once and for all , i.e. securely anchored in the family of democratic nations .
+
+Model score:	-1.0918364125490179
+Input:		merci beaucoup pour cet éclaircissement , monsieur le commissaire .
+Hypothesis	thank you very much for that clarification , mr commissioner .
+Reference:	thank you very much for that clarification , commissioner .
+
+Model score:	-32.55179727256298
+Input:		elle aura alors , selon moi , manqué à la mission qui était la sienne et perdu sa finalité .
+Hypothesis	it will then , in my view , failed to the mission that was the way and lost its purpose .
+Reference:	in that case , it will , in my view , have failed in its mission and purpose .
+
+Model score:	-14.409290575683116
+Input:		c' est à présent que nous pouvons garantir des valeurs et des avantages qui nous seront communs .
+Hypothesis	it is now that we can guarantee of the values and of the benefits which we will be common .
+Reference:	it is now that we are in a position to secure common values and benefits .
+
+Model score:	-38.536196738034484
+Input:		imaginez un seul instant qu' un processus de transformation économique et sociale fondamental se soit produit dans votre pays en un laps de temps aussi bref .
+Hypothesis	imagine a single moment that a process of economic transformation and social fundamental happened in your country in a shorter period of time also brief .
+Reference:	imagine if such radical economic and social change had taken place in your own country in such a short space of time .
+
+Model score:	-44.42506240919232
+Input:		jusque ici , cela reste du vent , monsieur verheugen , ceux qui s' occupent de projets concrets n' ont encore rien vu venir .
+Hypothesis	until here , this rest of the wind , mr verheugen , those who are working on concrete projects that have not yet seen nothing come .
+Reference:	it is still hot air , mr verheugen ; the actual agencies responsible for the project have not even noticed it exists .
+
+Model score:	-12.395111788660287
+Input:		aujourd' hui , la situation macro-économique se stabilise .
+Hypothesis	today , the macroeconomic situation is stabilises .
+Reference:	the macro-economic situation is now stabilising .
+
+Model score:	-26.141751966774464
+Input:		ce thème nécessite un effort particulier et ne peut , selon moi , être considéré comme un problème périphérique à l' adhésion de la lituanie et de la pologne .
+Hypothesis	this issue requires a special effort and cannot , in my view , be seen as a problem peripheral to the accession of lithuania and poland .
+Reference:	this issue requires a special effort and , in my view , cannot be dealt with purely as a problem on the fringe of the issue of the accession of lithuania and poland .
+
+Model score:	-179.54669150486586
+Input:		si , par exemple , nous mettons en doute la possibilité pour les citoyens , pour les ouvriers des pays candidats de circuler librement dans l' union européenne dès le début , si nous voulons retarder la reconnaissance pour les citoyens de l' est de ce droit qui représente l' un des principes essentiels de l' union , nous minerons le soutien aux difficiles réformes imposées .
+Hypothesis	if , for example , we are putting in doubt the possibility for the citizens , for the workers of the candidate countries to move freely in the european union from the beginning , if we want to delay the recognition for the citizens of the is of this right which is the one of the principles essential of the union , we minerons the support to the difficult reforms imposed .
+Reference:	if , for example , we place a question mark over whether it will be possible for the citizens and workers of candidate countries to move freely across the european union right from the word go , if we want to continue to deny the citizens of eastern europe recognition of that right which is one of the fundamental principles of the union , then we are further diminishing support for the difficult reforms which must take place before they can join the union .
+
+Model score:	-18.832930004261435
+Input:		je me réjouis que le rapport ait pu être adopté à l' unanimité au sein de la commission en date du 14 septembre .
+Hypothesis	i am pleased that the report has been able to be adopted unanimously in the commission in date of 14 september .
+Reference:	i was delighted that my report was adopted unanimously in committee on 14 september .
+
+Model score:	-99.51649036321787
+Input:		ce qui m' importe - et mes collègues de la commission des affaires étrangère , des droits de l' homme , de la sécurité commune et de la politique de défense m' ont soutenu sur ce point - , c' est que les critères de copenhague , également admis par les tchèques , restent d' application et je voudrais que les tchèques examinent eux-mêmes leur propre système juridique - page après page , si nécessaire - afin de voir si certains éléments n' ont pas un caractère discriminatoire .
+Hypothesis	what concerns me - and my colleagues of the commission affairs foreign , of the human rights , of the common security and of the policy of defence have supported me on this point - , that is that the criteria of copenhagen , also accepted by the czechs , remain in force and i would like that the czechs ' s subordinate themselves their own legal system - page after page , if necessary - in order to see if some elements are not of a nature discriminatory .
+Reference:	what is important to me - and my colleagues in the committee on foreign affairs , human rights , common security and defence policy supported me here - is that the copenhagen criteria , which the czechs have also acknowledged , should continue to apply and i should like the czechs themselves to review their own legal system , if necessary page by page , in order to ascertain if there are any laws which are discriminatory .
+
+Model score:	-19.059800621420145
+Input:		enfin , j' ai une nouvelle réjouissante , qui éclipse en fait mes critiques .
+Hypothesis	finally , i have a new forward-looking , which is overshadowed by in fact my criticisms .
+Reference:	now for the good news , because this actually eclipses the bad news .
+
+Model score:	-40.12428742639719
+Input:		monsieur le président , chers collègues , je pense pouvoir dire que ce rapport , débattu et enrichi par la commission des affaires étrangères , qui l' a adopté à l' unanimité , décrit et analyse avec assez de rigueur la phase actuelle du parcours d' adhésion de la hongrie , dans la double perspective de la question .
+Hypothesis	mr president , ladies and gentlemen , i think i can say that this report , discussed and enriched by the committee on foreign affairs , which has approved it unanimously , described and analysis with enough of rigour the current phase of the journey of accession of hungary , in the dual perspective of the question .
+Reference:	i think i can say that this report , which has been duly discussed and improved upon in the committee on foreign affairs , security and defence policy where it received unanimous approval , describes and analyses extremely thoroughly the current stage of hungary ' s path towards accession , in its dual approach to the issue .
+
+Model score:	-33.14684416510165
+Input:		cette question mérite d' être traitée sérieusement , dans un cadre général qui couvre non seulement la hongrie mais aussi les autres pays candidats qui ont recours à cette technologie dépassée et dangereuse .
+Hypothesis	this question deserves to be seriously addressed , in a general framework which covers not only the hungary but also the other candidate countries which have recourse to this technology outdated and dangerous .
+Reference:	this issue needs to be addressed seriously but within a broader framework that covers not just hungary but also the other candidate countries that still operate this antiquated and relatively unsafe technology .
+
+Model score:	-19.251489410549404
+Input:		les soupçons de corruption ont un effet des plus destructeurs , c' est pourquoi il faut régler ce problème sans délai .
+Hypothesis	the suspicions of corruption have an effect of the most destructive , that is why we need to settle this problem without delay .
+Reference:	the suspicion of corruption is a most destructive force and it must be tackled as a matter of urgency .
+
+Model score:	-22.909155579060318
+Input:		le gouvernement roumain , avec le soutien actif du commissaire verheugen , de la banque mondiale et des nations unies , nous a donné l' occasion d' élaborer de bonnes doctrines et de diffuser de bonnes pratiques dans la région .
+Hypothesis	the romanian government , with the active support of the commissioner verheugen , of the world bank and of the united nations , has given us the opportunity to devise good tenets and disseminate good practices in the region .
+Reference:	in romania the government , with the active support of commissioner verheugen , the world bank and the united nations , have given us an opportunity to establish good doctrines and best practice in the region .
+
+Model score:	-44.882341162040824
+Input:		il s' agit d' un pays candidat dont un tiers du territoire est occupé , depuis 1974 , par l' armée turque et où , du fait d' une ligne de démarcation particulièrement étanche , les principes fondamentaux de l' union européenne ne sont pas applicables sur l' entièreté du territoire .
+Hypothesis	it is a candidate country which a third of the territory is occupied , since 1974 , by the turkish army and where , of the fact of a line of demarcation particularly watertight , the fundamental principles of the european union are not applicable on the entirety of the territory .
+Reference:	this is a candidate country where a third of the territory has since 1974 been occupied by the turkish army and where , because of a particularly impervious line of demarcation , the fundamental principles of the european union cannot be applied across all of the territory .
+
+Model score:	-7.9353537836670895
+Input:		l' europe doit devenir un acteur responsable dans la solution du problème chypriote .
+Hypothesis	europe must become a player responsible in the solution to the cyprus problem .
+Reference:	europe must become a responsible player in finding a solution to the cyprus question .
+
+Model score:	-35.25435757853091
+Input:		ce qui est essentiel pour malte , c' est le soutien financier dans le cadre de la stratégie de préadhésion et d' avoir conscience que l' aide financière accordée à malte dans le cadre de la stratégie de préadhésion devrait répondre aux mêmes règles que celles appliquées aux autres pays candidats .
+Hypothesis	what is crucial for malta , that is the financial support in the framework of the pre-accession strategy and to be aware that the financial assistance to malta in the framework of the pre-accession strategy should meet the same rules as those applied to the other candidate countries .
+Reference:	financial support under the pre-accession strategy is fundamental for malta , as is the knowledge that financial aid for malta should comply with the rules which apply to the other candidate countries .
+
+Model score:	-26.33516027450562
+Input:		une fois les conditions remplies , il n' y a aucune raison , ni pour les pays candidats , ni pour les pays actuellement membres de l' euro , de s' opposer à l' entrée dans la troisième phase de l' union économique et monétaire des pays candidats .
+Hypothesis	once the conditions met , there is no reason , or for the candidate countries , or for the countries currently members of the euro , to oppose the entry in the third phase of the economic and monetary union of the candidate countries .
+Reference:	once the conditions have been fulfilled , there is no reason why either candidate countries or the countries currently members of the euro should object to candidate countries entering the third stage of economic and monetary union .
+
+Model score:	-239.84368036597968
+Input:		si vous voulez , je suis représentant d' une région qui préfigura , il y a dix ans , une partie de l' élargissement à l' est - je vivais moi aussi de l' autre côté du rideau de fer .
+Hypothesis	if you want , i am representative of a region which préfigura , it is ten years , a part of the enlargement to the is - i vivais too of the other side of the iron curtain .
+Reference:	you might say that i represent a region which , ten years ago , represented a good part of enlargement to the east - i too lived on the other side of the iron curtain .
+
+Model score:	-18.354634505212303
+Input:		nous devons entreprendre ensemble de grands efforts dans ce domaine en vue d' un espace commun de l' information .
+Hypothesis	we must take together a great effort in this area in view of a common area of information .
+Reference:	if we are to have a common information area , we must make huge joint efforts in this sector .
+
+Model score:	-71.90130879625679
+Input:		sur le plan technologique également , l' est et l' ouest semblent toujours en décalage : nous avons , pour mille habitants , seize connections internet alors qu' eux n' en ont que quatre .
+Hypothesis	on the plan technological also , the is and the west appear to be always off-centre : we have , for a thousand inhabitants , sixteen connections internet so that they have just four .
+Reference:	technologically too , there are still discrepancies between east and west : there are four internet connections per one thousand inhabitants over there , as opposed to sixteen over here .
+
+Model score:	-51.800687603354454
+Input:		l' ancienne rda a alors bénéficié d' aides colossales de l' allemagne de l' ouest , à savoir 150 milliards dem par an .
+Hypothesis	the former gdr has then been given aid formidable of germany of the west , namely 150 billion dem group per year .
+Reference:	in that situation , west germany backed the former gdr financially on a massive scale , by no less than dm 150 billion annually .
+
+Model score:	-174.90053395286202
+Input:		au cours des années à venir , nous risquons d' assister en europe de l' est à un dépeuplement des villages ruraux ainsi qu' à l' achat à grande échelle de terres agricoles pour les entreprises mécanisées de production intensive .
+Hypothesis	during the years to come , we run the risk to assist in europe of the is to a depopulation of rural villages as well as to the purchase to a large scale of agricultural land for the companies mécanisées production intensive .
+Reference:	the next few years in eastern europe might well see the depopulation of rural villages and the large-scale purchase of agricultural land for mechanised production-intensive farms .
+
+Model score:	-69.59636149078607
+Input:		nous sommes en train de constituer un corpus de directives et de réglementations relatives à des domaines entièrement liés la santé , comme la pollution , les émissions de substances radioactives et dangereuses , l' élimination des déchets , la qualité de l' eau , de l' air et du sol , la sécurité alimentaire , les nouveaux aliments et la responsabilité en matière de produits .
+Hypothesis	we are in the process to be a corpus of directives and regulations relating to the areas fully linked the health , as the pollution , emissions of radioactive substances and dangerous , the disposal of waste , the quality of water , air and soil , the food security , the new food and the responsibility in the field of products .
+Reference:	we are building a compendium of directives and regulations on matters wholly germane to health , such as pollution , emissions of radioactive and other dangerous substances , waste disposal , water , air , soil quality , food safety and novel foods and product liability .
+
+Model score:	-26.825226443335414
+Input:		par conséquent , dans mon rapport pour avis , je parle non seulement de ce que les pays de l' élargissement doivent faire mais également de ce que doit réaliser l' union européenne .
+Hypothesis	therefore , in my report for opinion , i am talking about not only of what the countries of the enlargement must be done , but also of what needs to achieve the european union .
+Reference:	my report on the committee ' s opinion therefore talks not only of what the candidate countries have to do but also of what the european union has to do .
+
+Model score:	-12.886570443212985
+Input:		venons-en à présent aux vrais signaux .
+Hypothesis	let me now turn to real signals .
+Reference:	but now to the right signals .
+
+Model score:	-43.70572083458305
+Input:		nous devons veiller à ce que les infrastructures ferroviaires existantes en europe centrale et de l' est ne soient pas remplacées par le transport routier pour être ensuite rétablies au prix de coûteux efforts .
+Hypothesis	we must ensure that the rail infrastructure existing in central europe and of the is not to be replaced by the road transport to be then restored at the price of costly efforts .
+Reference:	we must ensure that the present rail infrastructure in central and eastern europe is not replaced by road transport , resulting in a great deal of effort at a later date in an attempt to put things right .
+
+Model score:	-14.946249592304229
+Input:		ce " non " sera minutieusement analysé dans les jours prochains .
+Hypothesis	this ' no ' will be carefully analysed in the days next .
+Reference:	this ' no ' will now be analysed carefully in the days to come .
+
+Model score:	-120.80707033902407
+Input:		ainsi , nous avons parcouru le texte et nous avons tenté d' écourter toute une série de points .
+Hypothesis	thus , we have come the text and we have tried to écourter a whole series of points .
+Reference:	this is how we came to go through the text , and attempted to cut down on certain items in the process .
+
+Model score:	-35.037241250798104
+Input:		il ne faut pas commencer à douter en public de la valeur , ni de la valeur immédiate , de la portée matérielle de cet élargissement .
+Hypothesis	we must not start to question in public of the value , or of the immediate value , of the scope material of this enlargement .
+Reference:	it makes little sense to start to doubt in public the value , including the direct value at a material level , of this enlargement .
+
+Model score:	-35.603218431919814
+Input:		si de longs régimes transitoires sont nécessaires , qu' on maintienne ces longs régimes transitoires .
+Hypothesis	if of long transitional regulations are necessary , that we retain these long transitional regulations .
+Reference:	if there is a need for long transitional arrangements on certain points , then let us have long transitional arrangements .
+
+Model score:	-9.070781973451375
+Input:		premièrement , la volonté démocratique des états et des peuples concernés d' adhérer à l' ue doit être respectée .
+Hypothesis	firstly , the democratic will of member states and of the peoples involved to join the eu must be respected .
+Reference:	first , the democratic wish of the countries and people in question must be respected after their accession to the eu .
+
+Model score:	-14.39834092229605
+Input:		ils se trompent parce que ce n' est pas l' union européenne et ses 80 000 pages de directives et de règlements qui créent la prospérité .
+Hypothesis	they are wrong because this is not the european union and its 80 000 pages of directives and regulations that create prosperity .
+Reference:	they are wrong because prosperity is not generated by the european union and its 80 000 pages of directives and regulations .
+
+Model score:	-38.19459157891572
+Input:		les réserves , de plus en plus fortes , exprimées par nos populations et le récent rejet de l ' euro par le danemark sont là pour nous le rappeler .
+Hypothesis	the reservations , increasingly strong , expressed by our populations and the recent rejection of the euro by denmark are there to remind us .
+Reference:	the increasingly strong reservations expressed by our peoples and denmark ' s recent rejection of the euro serve to remind us of that .
+
+Model score:	-21.92436668917537
+Input:		j' en arrive à la même conclusion dans l' avis que j' ai eu la responsabilité de formuler à propos du rapport brok , et qui a été soutenu par la commission des budgets .
+Hypothesis	i now come to the same conclusion in the opinion that i have had the responsibility to make about the brok report , and which has been supported by the committee on budgets .
+Reference:	in the opinion on the brok report , for which i was responsible and which has been backed by the committee on budgets , the conclusion is the same .
+
+Model score:	-264.6122413687408
+Input:		l ' époque n ' est pas la plus adaptée pour se consacrer à la politique extérieure et les accusations que se lancent les différents partis peuvent également prendre des tournures enflammées et instrumentales .
+Hypothesis	the time is not the more appropriate to devote itself to the foreign policy and the accusations that are daring the various parties can also take of tournures enflammées and instruments put .
+Reference:	this is not the most opportune moment for it to focus on foreign policy and the interchanges between the different parties could become heated and exploitative .
+
+Model score:	-43.6927560146898
+Input:		si l' acquis communautaire était divisé en deux , on pourrait d' un côté garantir le niveau d' intégration atteint par les pays membres actuels et de l' autre contribuer à intensifier leur coopération .
+Hypothesis	if the acquis communautaire was divided into two , could be of a side guarantee the level of integration achieved by the present member states and of the other contribute to step up their cooperation .
+Reference:	in splitting the body of eu law in two , the level of integration achieved by the present member states could be guaranteed and cooperation could be further enhanced .
+
+Model score:	-42.81657642607576
+Input:		je me suis rendu en roumanie à le fin du mois de juillet pour constater par moi-même le fonctionnement d' un des orphelinats les plus importants , situé dans le nord de la roumanie .
+Hypothesis	i visited romania to the end of the month of july for to see for myself the functioning of a of the homes the more important , located in the north of romania .
+Reference:	i visited romania at the end of july to see at first hand the workings of one of the largest orphanages which is in northern romania .
+
+Model score:	-60.79875319384038
+Input:		nous demandons par conséquent au rapporteur , à la commission et au conseil d' ajouter au chapitre consacré à l' agriculture quelques paragraphes sur la politique de la pêche . le titre pourrait être modifié en conséquence et , à la place de " aspects de l' élargissement concernant l' agriculture " , pourrait devenir " aspects de l' élargissement concernant l' agriculture et la pêche " .
+Hypothesis	we are therefore asking for the rapporteur , to the commission and the council to add to the chapter devoted to agriculture a few paragraphs on the fisheries policy . the title could be amended accordingly and , to the place of ' aspects of enlargement on agriculture ' , could become ' aspects of enlargement on agriculture and fisheries ' .
+Reference:	we therefore call upon the rapporteur , the commission and the council to supplement the agricultural policy section with the fisheries policy section , for example by changing the title ' agricultural aspects of enlargement ' to ' agricultural and fisheries aspects of enlargement ' .
+
+Model score:	-27.02011662721634
+Input:		il vaut mieux bien faire un peu plus tard que mal faire un peu plus tôt .
+Hypothesis	it is better to do a little later that evil do a little earlier .
+Reference:	it is better to have a sound accession at a slightly later date than a premature one which proves inadequate .
+
+Model score:	-40.77754762336612
+Input:		vu les liens étroits qui unissent chypre aux peuples de la méditerranée orientale , l ' adhésion de l ' île renforcera la présence de l ' union dans cet espace d ' importance vitale .
+Hypothesis	given the strong ties that exist between cyprus to the peoples of the eastern mediterranean , the accession of the island will strengthen the presence of the union in this area of vital importance .
+Reference:	cyprus has close links with the people of the eastern mediterranean and integrating the island will heighten the union ' s profile in this vital area .
+
+Model score:	-18.01670438141563
+Input:		je soutiens le point de vue du rapporteur lorsqu' elle dit que malte devrait être admise lors de la première vague de l' élargissement et que les négociations devraient être achevées d' ici la fin de l' année 2001 .
+Hypothesis	i support the point of view of the rapporteur when she says that malta should be accepted at the first wave of enlargement and that the negotiations should be concluded by the end of the year 2001 .
+Reference:	i support the view of the rapporteur that malta should be admitted to membership in the first tranche of enlargement and that negotiations should be completed by the end of 2001 .
+
+Model score:	-18.499557962194086
+Input:		nous sommes aussi responsables de la manière dont nous communiquons en actes et en paroles au sujet de l' élargissement .
+Hypothesis	we are also responsible for the way we communicate in acts and in words on the subject of enlargement .
+Reference:	it is for us to determine a communication strategy for enlargement , through words and deeds .
+
+Model score:	-10.69551575176418
+Input:		dans ce contexte , il convient de susciter la naissance d' une opinion publique favorable à l' élargissement .
+Hypothesis	in this context , we should raise the birth of a public opinion in favour of enlargement .
+Reference:	in this context , it is a question of rousing public opinion in favour of enlargement .
+
+Model score:	-42.093837214186784
+Input:		l' idée de m. verheugen d' un référendum sur l' élargissement a été repoussée et la raison en est claire : on ne peut pas laisser les payeurs décider de cette question .
+Hypothesis	the idea of mr verheugen to a referendum on the enlargement has been put off and the reason for this is clear : we cannot leave the paymasters decide on this issue .
+Reference:	commissioner verheugen ' s idea of a referendum on enlargement was heavily criticised , and the reason is obvious : those who have to pay cannot be let to decide on the matter .
+
+Model score:	-49.578003004752105
+Input:		face au double défi de l' élargissement , qui doit permettre à l' europe de se réconcilier avec elle-même , et de la réforme institutionnelle qui doit renforcer démocratie et efficacité au sein des institutions , l' union européenne se retrouve - comme souvent - à un tournant important de son histoire .
+Hypothesis	face the dual challenge of enlargement , which must enable europe to be reconciled with itself , and of the institutional reform which must strengthen democracy and efficiency within the institutions , the european union to be found - as often - at a turning point important in its history .
+Reference:	in the face of the twofold challenge of both the enlargement , which must enable europe to come to terms with itself , and the institutional reform , which must increase democracy and efficiency within the institutions , the european union now , as it often does , stands at an important turning point in its history .
+
+Model score:	-37.32997667498887
+Input:		je voudrais surtout me tourner vers le conseil malheureusement fort peu représenté aujourd' hui afin lui faire part de certaines exigences et inquiétudes .
+Hypothesis	i would like , above all , i turn to the council unfortunately very little represented today in order to express certain requirements and concerns .
+Reference:	above all though , i would like to bring various expectations and reservations that i have , to the attention of the council , which , i am sorry to say , is largely absent .
+
+Model score:	-29.1398630285263
+Input:		ce dialogue contribuerait , en outre , à la création de la capacité administrative nécessaire pour la gestion efficace du pays , à l' établissement de structures aujourd' hui inexistantes et à la réduction de la corruption .
+Hypothesis	this dialogue would contribute , in addition , to the creation of the administrative capacity necessary for the effective management of the country , to the establishment of structures today non-existent and to the reduction of corruption .
+Reference:	this dialogue would also contribute to the creation of the necessary administrative capacity for the effective management of the country , creating structures which do not currently exist and reducing cases of corruption .
+
+Model score:	-9.536813553273678
+Input:		comme les autres petits états membres , malte doit être représentée par un minimum de six députés .
+Hypothesis	as the other small member states , malta should be represented by a minimum of six members .
+Reference:	malta should be represented by a minimum of six meps , like the other smaller member states .
+
+Model score:	-50.386305113434794
+Input:		nous ne pouvons pas non plus partir du principe qu' un quelconque candidat serait nettement le premier et que sans lui , l' élargissement ne pourrait même pas commencer .
+Hypothesis	we cannot either leave of the principle that any candidate would be much the first and that without it , the enlargement does could not even start .
+Reference:	neither can we base enlargement on the idea that a given applicant naturally has priority over another as if , without it , the whole process could not start at all .
+
+On sentence 100
+Model score:	-13.540755087509751
+Input:		nous espérons que les efforts exceptionnels déployés récemment par le gouvernement seront reflétés dans le prochain rapport de la commission .
+Hypothesis	we hope that the efforts exceptional made recently by the government will be reflected in the next report of the commission .
+Reference:	we only hope that the tremendous efforts made by the government of late will be reflected in the next commission report .
+
+Decoding took 1535.357s
+BLEU score on test data was BLEU(25.138)
+Total model score on test data was -4074.268562105241
+
+Process finished with exit code 0
