@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by jogonzal on 12/3/2015.
  */
-public class DecoderBase {
+public class NonMonotonicDecoderBase {
 
     TranslationState MaxState;
 
@@ -21,24 +21,14 @@ public class DecoderBase {
     NgramLanguageModel _languageModel;
     DistortionModel _distortionModel;
 
-    public DecoderBase(PhraseTable tm, NgramLanguageModel lm, DistortionModel dm){
+    public NonMonotonicDecoderBase(PhraseTable tm, NgramLanguageModel lm, DistortionModel dm){
         MaxState = null;
         _phraseTable = tm;
         _languageModel = lm;
         _distortionModel = dm;
     }
 
-    private static Integer BeamSize = 2000;
-    public static List<TranslationState> GetListFromBeam(FastPriorityQueue<TranslationState> beam){
-        int elementsToDequeue = Math.min(BeamSize, beam.size());
-        ArrayList<TranslationState> list = new ArrayList<TranslationState>(elementsToDequeue);
-        for (int i = 0; i < elementsToDequeue; i++){
-            list.add(beam.removeFirst());
-        }
-        return list;
-    }
-
-    protected void AddInitialStatesToBeam(PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue<TranslationState> beam, boolean monotonic) {
+    protected void AddInitialStatesToBeam(PhraseTableForSentence phraseTableForSentence, int foreignSentenceLength, FastPriorityQueue[] beamArray, boolean monotonic) {
 
         int startPositionLimit = foreignSentenceLength; // (unlimited for non-monotonic approaches)
         if (monotonic){
@@ -61,12 +51,12 @@ public class DecoderBase {
                             SetMaxState(state);
                         } else {
                             if (monotonic){
-                                beam.setPriority(state, state.CurrentScore);
+                                InsertInBeam(state, state.CurrentScore, beamArray);
                                 continue;
                             }
 
                             if (!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
-                                beam.setPriority(state, state.CurrentScore);
+                                InsertInBeam(state, state.CurrentScore, beamArray);
                             }
                         }
                     }
@@ -113,23 +103,27 @@ public class DecoderBase {
 
     protected List<ScoredPhrasePairForSentence> DecodeFrenchSentence(List<String> frenchSentence, boolean monotonic) {
         int foreignSentenceLength = frenchSentence.size();
+        int beamLength = 400;
         PhraseTableForSentence phraseTableForSentence = _phraseTable.initialize(frenchSentence);
-        FastPriorityQueue<TranslationState> beam = new FastPriorityQueue<TranslationState>();
         MaxState = null;
 
-        AddInitialStatesToBeam(phraseTableForSentence, foreignSentenceLength, beam, monotonic);
+        FastPriorityQueue beamArray[] = new FastPriorityQueue[foreignSentenceLength];
+        for(int i = 0; i < beamArray.length; i++){
+            beamArray[i] = new FastPriorityQueue<TranslationState>();
+        }
+
+        AddInitialStatesToBeam(phraseTableForSentence, foreignSentenceLength, beamArray, monotonic);
 
         int iteration = 0;
 
-        while(beam.size() > 0){
+        while(BeamStillHasElements(beamArray)){
             // System.out.println("Best translation for iteration " + iteration  +":\n\t" + beam.getFirst());
             // System.out.println("Sentence: ");
             // List<String> accumulatedSentence = Decoder.StaticMethods.extractEnglish(TranslationState.BuildPhraseListFromState(beam.getFirst()));
             // System.out.println(StrUtils.join(accumulatedSentence));
 
             // Get the list from the beam and erase it
-            List<TranslationState> elementsToProcess = GetListFromBeam(beam);
-            beam = new FastPriorityQueue<TranslationState>();
+            List<TranslationState> elementsToProcess = GetListFromBeam(beamArray, beamLength);
 
             for (TranslationState elementToProcess : elementsToProcess){
                 // System.out.println(elementToProcess);
@@ -141,8 +135,8 @@ public class DecoderBase {
                             // If we're in range, iterate. If not, break
                             continue;
                         }
-                        int phraseLengthLimit = Math.min(startAndEnd.End - startPosition, phraseTableForSentence.getMaxPhraseLength());
 
+                        int phraseLengthLimit = Math.min(startAndEnd.End - startPosition, phraseTableForSentence.getMaxPhraseLength());
                         int leftStart = startPosition;
                         // System.out.println("Initially exploring starting " + leftStart + " for " + phraseLengthLimit);
 
@@ -159,12 +153,12 @@ public class DecoderBase {
                                         SetMaxState(state);
                                     } else {
                                         if (monotonic){
-                                            beam.setPriority(state, state.CurrentScore);
+                                            InsertInBeam(state, state.CurrentScore, beamArray);
                                             continue;
                                         }
 
                                         if(!state.ShouldBeAvoided(_distortionModel.getDistortionLimit())){
-                                            beam.setPriority(state, state.CurrentScore);
+                                            InsertInBeam(state, state.CurrentScore, beamArray);
                                         }
                                     }
                                 }
@@ -183,5 +177,62 @@ public class DecoderBase {
         TranslationState winnerFinalState = MaxState;
         List<ScoredPhrasePairForSentence> winnerPhrase = TranslationState.BuildPhraseListFromState(winnerFinalState);
         return winnerPhrase;
+    }
+
+    private List<TranslationState> GetListFromBeam(FastPriorityQueue[] beamArray, int beamLength) {
+
+        List<TranslationState> list = new ArrayList<TranslationState>();
+
+        for(int i = 0; i < beamArray.length; i++){
+            FastPriorityQueue<TranslationState> beam = beamArray[i];
+            int elementsToDequeue = Math.min(beamLength, beam.size());
+            for (int e = 0; e < elementsToDequeue; e++){
+                list.add(beam.removeFirst());
+            }
+            beamArray[i] = new FastPriorityQueue<TranslationState>();
+        }
+
+        return list;
+    }
+
+    private boolean BeamStillHasElements(FastPriorityQueue[] beamArray) {
+        for(int i = 0; i < beamArray.length; i++){
+            FastPriorityQueue<TranslationState> beam = beamArray[i];
+            if (beam.size() > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void InsertInBeam(TranslationState state, double priority, FastPriorityQueue[] beamArray){
+        int sentenceLengthSoFar = 0;
+        for(int i = 0; i < state.TranslatedFlags.length; i++){
+            if (state.TranslatedFlags[i] == true){
+                sentenceLengthSoFar++;
+            }
+        }
+
+        beamArray[sentenceLengthSoFar].setPriority(state, priority);
+    }
+
+    private TranslationState GetBestTranslation(FastPriorityQueue[] beamArray) {
+        TranslationState bestTranslation = null;
+        for(int i = 0; i < beamArray.length; i++){
+            FastPriorityQueue<TranslationState> beam = beamArray[i];
+            if (beam.size() > 0){
+                TranslationState beamFirst = beam.getFirst();
+                if (bestTranslation == null){
+                    bestTranslation = beamFirst;
+                    continue;
+                }
+
+                if (bestTranslation.CurrentScore < beamFirst.CurrentScore){
+                    bestTranslation = beamFirst;
+                }
+            }
+
+        }
+        return bestTranslation;
     }
 }

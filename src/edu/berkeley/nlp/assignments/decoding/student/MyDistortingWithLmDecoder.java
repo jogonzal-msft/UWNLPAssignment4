@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by jogonzal on 11/28/2015.
  */
-public class MyDistortingWithLmDecoder extends DecoderBase implements Decoder {
+public class MyDistortingWithLmDecoder extends NonMonotonicDecoderBase implements Decoder {
 
     public MyDistortingWithLmDecoder(PhraseTable tm, NgramLanguageModel lm, DistortionModel dm){
         // In this implementation, none of the 3 models are null
